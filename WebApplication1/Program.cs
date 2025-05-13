@@ -22,7 +22,7 @@ catch (Exception ex)
 }
 
 
-string connectionString = builder.Configuration["DbConnection"];
+string connectionString = builder.Configuration.GetConnectionString("DbConnection");
 
 builder.Services.AddScoped<Teste>(map => new Teste(connectionString));
 
