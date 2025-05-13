@@ -23,9 +23,11 @@ jobs:
         with:
           dotnet-version: '9.x'
 
-      - name: Add NuGet.org feed
-        run: dotnet nuget add source https://api.nuget.org/v3/index.json -n nuget.org
-        
+      - name: Ensure NuGet.org feed is available
+        run: |
+           dotnet nuget remove source nuget.org || true
+           dotnet nuget add source https://api.nuget.org/v3/index.json -n nuget.org
+
       - name: Restore dependencies
         run: dotnet restore
 
