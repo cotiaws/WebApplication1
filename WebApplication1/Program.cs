@@ -9,10 +9,18 @@ builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
-builder.Configuration.AddAzureKeyVault(
-    new Uri("https://coti.vault.azure.net/"),
-    new DefaultAzureCredential()
-);
+try
+{
+    builder.Configuration.AddAzureKeyVault(
+        new Uri("https://coti.vault.azure.net/"),
+        new DefaultAzureCredential()
+    );
+}
+catch (Exception ex)
+{
+    Console.WriteLine("Erro ao acessar o Key Vault: " + ex.Message);
+}
+
 
 string connectionString = builder.Configuration["DbConnection"];
 
